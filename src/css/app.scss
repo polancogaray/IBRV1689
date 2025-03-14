@@ -1,1 +1,11 @@
 // app global css in SCSS form
+@font-face {
+    font-family: GreycliffCF-Regular;
+    src: url(./fonts/GreycliffCF-Regular.woff);
+  }
+  
+  // Estilo de fuente global
+  body {
+    font-family: 'GreycliffCF-Regular', sans-serif;
+  }
+  
