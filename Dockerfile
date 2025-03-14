@@ -14,7 +14,7 @@ RUN npm install -g @quasar/cli && \
 COPY . .
 
 # Compila la aplicación en modo PWA
-RUN quasar build -m pwa
+RUN quasar build
 
 # Etapa de producción
 FROM nginx:alpine as production-stage
