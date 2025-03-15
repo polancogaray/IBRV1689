@@ -36,6 +36,6 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      # Paso 7: Despliega en Firebase
+      # Paso 7: Despliega en Firebase 
       - name: Deploy to Firebase
         run: firebase deploy --token "${{ secrets.FIREBASE_TOKEN }}"
