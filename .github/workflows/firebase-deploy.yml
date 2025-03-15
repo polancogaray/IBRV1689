@@ -38,6 +38,4 @@ jobs:
 
       # Paso 7: Despliega en Firebase
       - name: Deploy to Firebase
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_KEY }}
-        run: firebase deploy --token "$FIREBASE_TOKEN"
+        run: firebase deploy --token "$secrets.FIREBASE_KEY"
