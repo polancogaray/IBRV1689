@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "ibrv1689",
     "public": "dist/spa",
     "ignore": [
       "firebase.json",
