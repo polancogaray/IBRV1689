@@ -31,6 +31,11 @@ jobs:
       # Paso 5: Compila el proyecto Quasar
       - name: Build Quasar project
         run: quasar build
+        env:
+          VUE_APP_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          VUE_APP_MESSAGINGSENDERID: ${{ secrets.VUE_APP_MESSAGINGSENDERID }}
+          VUE_APP_APPID: ${{ secrets.VUE_APP_APPID }}
+          VUE_APP_MEASUREMENTID: ${{ secrets.VUE_APP_MEASUREMENTID }}
 
       # Paso 6: Instala Firebase CLI
       - name: Install Firebase CLI
