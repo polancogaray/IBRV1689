@@ -54,12 +54,6 @@ export default defineConfig((ctx) => {
       // publicPath: '/',
       // analyze: true,
       // env: {},
-      env:{
-        VUE_APP_FIREBASE_API_KEY: process.env.VUE_APP_FIREBASE_API_KEY,
-        VUE_APP_MESSAGINGSENDERID: process.env.VUE_APP_MESSAGINGSENDERID,
-        VUE_APP_APPID: process.env.VUE_APP_APPID,
-        VUE_APP_MEASUREMENTID: process.env.VUE_APP_MEASUREMENTID,
-      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
