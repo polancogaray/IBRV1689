@@ -10,9 +10,9 @@ const firebaseConfig = {
   authDomain: "ibrv1689.firebaseapp.com",
   projectId: "ibrv1689",
   storageBucket: "ibrv1689.firebasestorage.app",
-  messagingSenderId: process.env.VUE_APP_MESSAGINGSENDERID,
-  appId: process.env.VUE_APP_APPID,
-  measurementId: process.env.VUE_APP_MEASUREMENTID
+  messagingSenderId: "1008949836943",
+  appId: "1:1008949836943:web:57026166a7e0fd4aa484fa",
+  measurementId: "G-NXJJ9D1DMN"
 };
 
 // Inicializa Firebase
