@@ -60,8 +60,6 @@
 
 <script setup>
 import { ref } from "vue";
-import { auth } from "src/boot/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 
 
 // Estados reactivos
@@ -96,8 +94,7 @@ const onSubmit = async () => {
 // Registrar un nuevo usuario
 const register = async () => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email.value,password.value);
-    console.log("Usuario registrado:", userCredential.user);
+    console.log("Usuario registrado:", email.value);
     
   } catch (error) {
     console.error("Error al registrar:", error.message);
@@ -107,8 +104,7 @@ const register = async () => {
 // Iniciar sesión
 const login = async (email, password) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("Usuario autenticado:", userCredential.user);
+    console.log("Usuario autenticado:", email+"_"+password);
   } catch (error) {
     console.error("Error al iniciar sesión:", error.message);
   }
@@ -117,7 +113,6 @@ const login = async (email, password) => {
 // Cerrar sesión
 const logout = async () => {
   try {
-    await signOut(auth);
     console.log("Sesión cerrada");
   } catch (error) {
     console.error("Error al cerrar sesión:", error.message);
