@@ -6,7 +6,7 @@ import { getAnalytics } from "firebase/analytics"; // Para Analytics (opcional)
 
 // Configuración de Firebase
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  apiKey: "AIzaSyAIJl7YKw5bH520cyLS70NoHZFkPfGZk6o",
   authDomain: "ibrv1689.firebaseapp.com",
   projectId: "ibrv1689",
   storageBucket: "ibrv1689.firebasestorage.app",
