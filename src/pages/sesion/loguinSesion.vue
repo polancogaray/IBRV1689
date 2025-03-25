@@ -1,71 +1,37 @@
 <template>
-  <q-card
-    flat
-    class="q-pa-md text-white"
-    style="max-width: 400px; margin: auto">
-    <q-card-section>
-        <div class="q-pa-md">
-      <!-- Campo de correo electrónico -->
-      <q-input
-        v-model="email"
-        label="Correo electrónico"
-        rounded
-        outlined
-        :rules="[(val) => validateEmail(val) || 'Ingrese un correo válido']" />
+  <div class="q-pa-md">
+    <!-- Campo de correo electrónico -->
+    <q-input v-model="email" label="Correo electrónico" rounded outlined standout="primary text-white"
+      class="q-field--dark" :rules="[(val) => validateEmail(val) || 'Ingrese un correo válido']" />
 
-      <!-- Campo de contraseña -->
-      <q-input
-        v-model="password"
-        :type="isPwd ? 'password' : 'text'"
-        label="Contraseña"
-        rounded
-        outlined
-        :rules="[
-          (val) => validatePassword(val) || 'La contraseña es requerida',
-        ]">
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd" />
-        </template>
-      </q-input>
-    </div>
-      <!-- Botón para enviar el formulario -->
-      <q-btn
-        size="1.1rem"
-        no-caps
-        color="primary"
-        label="Iniciar sesión"
-        class="full-width rounded-buttom"
-        @click="onSubmit" />
-      <!-- Botón para enviar el formulario -->
-      <q-btn
-        size="1.1rem"
-        no-caps
-        color="primary"
-        label="Registrar usuario"
-        class="full-width rounded-buttom"
-        @click="register" />
-      <q-btn
-        size="1.1rem"
-        no-caps
-        color="primary"
-        label="cerrar sesión"
-        class="full-width rounded-buttom"
-        @click="logout" />
-    </q-card-section>
-  </q-card>
+    <!-- Campo de contraseña -->
+    <q-input v-model="password" :type="isPwd ? 'password' : 'text'" label="Contraseña" rounded outlined
+      standout="primary text-white" class="q-field--dark"
+      :rules="[(val) => validatePassword(val) || 'La contraseña es requerida']">
+      <template v-slot:append>
+        <q-icon class="cursor-pointer" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd" />
+      </template>
+    </q-input>
+  </div>
+  <!-- Botón para enviar el formulario -->
+  <q-btn size="1.1rem" no-caps outline label="Iniciar sesión" class="full-width rounded-buttom" @click="onSubmit" />
+  <!-- Botón para enviar el formulario -->
+  <q-btn size="1.1rem" no-caps outline label="Registrar usuario" class="full-width rounded-buttom" @click="register" />
+  <q-btn size="1.1rem" no-caps outline label="cerrar sesión" class="full-width rounded-buttom" @click="logout" />
 </template>
 
 <script setup>
-import { ref } from "vue";
-
+import { ref } from 'vue';
+import supabase from 'src/boot/supabase.js';
+import { useAuthStore } from 'src/stores/authStore';
+import { userLogguedStore } from 'src/stores/userLogguedStore';
 
 // Estados reactivos
-const email = ref("");
-const password = ref("");
+const email = ref('');
+const password = ref('');
 const isPwd = ref(true); // Para mostrar/ocultar la contraseña
+const authStore = useAuthStore();
+const userLoggued = userLogguedStore();
 
 // Validación del correo electrónico
 const validateEmail = (email) => {
@@ -81,41 +47,63 @@ const validatePassword = (password) => {
 // Función para manejar el envío del formulario
 const onSubmit = async () => {
   if (validateEmail(email.value) && validatePassword(password.value)) {
-    console.log("Inicio de sesión exitoso");
-    await login(email.value,password.value);
+    console.log('Inicio de sesión exitoso');
+    // console.log("supabase",supabase);
+    await login(email.value, password.value);
     // Aquí puedes agregar la lógica para enviar los datos al servidor
   } else {
-    console.log("Por favor, complete los campos correctamente");
-
-    
+    console.log('Por favor, complete los campos correctamente');
   }
 };
 
 // Registrar un nuevo usuario
 const register = async () => {
   try {
-    console.log("Usuario registrado:", email.value);
-    
+    console.log('Usuario registrado:', email.value);
   } catch (error) {
-    console.error("Error al registrar:", error.message);
+    console.error('Error al registrar:', error.message);
   }
 };
 
 // Iniciar sesión
 const login = async (email, password) => {
   try {
-    console.log("Usuario autenticado:", email+"_"+password);
+    console.log('supabase', supabase);
+    const data = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+    if (data) {
+      authStore.setToken(data.access_token);
+      await getDataUserAuthenticated(data.data.user);
+    }
+
+    // if (error) {
+    //   console.log("Error al iniciar sesión: " + error.message);
+    // } else {
+    console.log('Inicio de sesión exitoso', data);
+    // }
   } catch (error) {
-    console.error("Error al iniciar sesión:", error.message);
+    alert('Error al iniciar sesión: ' + error.message);
+  }
+};
+
+const getDataUserAuthenticated = async (user) => {
+  try {
+    // const user = supabase.auth.user();
+    userLoggued.setUserData(user);
+    console.log('Usuario autenticado:', user);
+  } catch (error) {
+    console.error('Error al obtener el usuario autenticado:', error.message);
   }
 };
 
 // Cerrar sesión
 const logout = async () => {
   try {
-    console.log("Sesión cerrada");
+    console.log('Sesión cerrada');
   } catch (error) {
-    console.error("Error al cerrar sesión:", error.message);
+    console.error('Error al cerrar sesión:', error.message);
   }
 };
 </script>
@@ -123,6 +111,11 @@ const logout = async () => {
 <style scoped>
 /* Estilos personalizados si los necesitas */
 .rounded-buttom {
-	border-radius: 26px;
+  border-radius: 26px;
+}
+
+.custom-input {
+  background-color: grey;
+  color: white;
 }
 </style>

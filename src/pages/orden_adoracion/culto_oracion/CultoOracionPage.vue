@@ -1,12 +1,17 @@
 <template>
-  <q-page class="flex flex-center q-pa-md">
-    <OrdenAdoracionPage/>
-  </q-page>
+      <!-- Culto de Oración -->
+      <q-card-section>
+        <div class="text-h6 text-center text-weight-bold">Culto de Oración</div>
+        <div class="text-caption text-center">Horario: 10:15 am</div>
+        <q-separator class="q-my-sm" />
+        <div class="text-body1">Lectura: Salmo 145:8-9</div>
+        <div class="text-body1 q-mt-sm">HIMNO DE RESPUESTA: Oh que amigo nos es Cristo.</div>
+      </q-card-section>
+
 </template>
 
 <script setup>
 // No se necesita lógica adicional para este ejemplo
-import OrdenAdoracionPage from './orden_adoracion/OrdenAdoracionPage.vue';
 </script>
 
 <style scoped>
