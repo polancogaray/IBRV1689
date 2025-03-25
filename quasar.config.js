@@ -54,6 +54,10 @@ export default defineConfig((ctx) => {
       // publicPath: '/',
       // analyze: true,
       // env: {},
+      env: {
+        VUE_APP_SUPABASE_URL: process.env.VUE_APP_SUPABASE_URL,
+        VUE_APP_SUPABASE_KEY: process.env.VUE_APP_SUPABASE_KEY,
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
